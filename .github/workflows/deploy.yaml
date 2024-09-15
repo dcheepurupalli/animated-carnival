@@ -1,0 +1,51 @@
+name: Development Workflow
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js (or your preferred environment)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21' # Specify your Node.js version
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # - name: Install pnpm
+      #   run: npm install -g pnpm
+
+      # - name: Install dependencies
+      #   run: pnpm install # Use pnpm to install dependencies
+
+      # - name: Build application
+      #   run: pnpm run build # Use pnpm to build the application
+
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t sample-app:dev-${{ github.run_number }} .
+      #     # Optionally, push the image to a registry
+      #     # docker push your-image:dev-${{ github.sha }}
+
+      # - name: Build and tag the Docker image
+      #   run: |
+      #     TAG="stage.(${{ github.run_number }})"
+      #     docker build -t your-repo/your-app:$TAG .
+      #     # docker push your-repo/your-app:$TAG
+
+      - name: Notify success
+        run: echo "Development workflow completed successfully!"
