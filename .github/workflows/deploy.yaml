@@ -26,26 +26,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      # - name: Install pnpm
-      #   run: npm install -g pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-      # - name: Install dependencies
-      #   run: pnpm install # Use pnpm to install dependencies
+      - name: Install dependencies
+        run: pnpm install # Use pnpm to install dependencies
 
-      # - name: Build application
-      #   run: pnpm run build # Use pnpm to build the application
+      - name: Build application
+        run: pnpm run build # Use pnpm to build the application
 
-      # - name: Build Docker image
-      #   run: |
-      #     docker build -t sample-app:dev-${{ github.run_number }} .
-      #     # Optionally, push the image to a registry
-      #     # docker push your-image:dev-${{ github.sha }}
-
-      # - name: Build and tag the Docker image
-      #   run: |
-      #     TAG="stage.(${{ github.run_number }})"
-      #     docker build -t your-repo/your-app:$TAG .
-      #     # docker push your-repo/your-app:$TAG
+      - name: Build Docker image
+        run: |
+          docker build -t sample-app:dev-${{ github.run_number }} .
+          # Optionally, push the image to a registry
+          # docker push your-image:dev-${{ github.sha }}
 
       - name: Notify success
         run: echo "Development workflow completed successfully!"
